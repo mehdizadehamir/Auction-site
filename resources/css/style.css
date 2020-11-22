@@ -1,0 +1,73 @@
+:root{
+    --default-text-dark: #212529;
+    --top-header-back-color: rgb(255, 228, 209);
+
+    --red-color: rgb(247, 94, 121);
+    --green-color: rgb(0, 170, 158);
+    --yellow-color: rgb(234, 190, 80);
+}
+
+.text-default-dark{
+    color: var(--default-text-dark);
+}
+
+body{
+    font-family: 'Optima';
+    font-size: 15px;
+}
+
+nav.navbar{
+    border-bottom: 1px solid #d3d9df;
+}
+nav ul .nav-link{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+nav ul li.active{
+    text-decoration: underline !important;
+}
+
+header{
+    min-height: 100px;
+    background: #ffffff;
+    margin-top: 50px;
+}
+header p{
+    font-size: 16px;
+}
+header .header-bid-section div.header-bid-section-item{
+    display: inline-block;
+    margin: 3px;
+    padding: 5px;
+    padding-left: 10px;padding-right: 10px;
+    background: var(--top-header-back-color);
+    color: var(--default-text-dark);
+    border-radius: 3px;
+}
+
+
+.sign-up-left-image{
+    background: url('../../resources/images/sign-up.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;left: 0;
+    width: 100%;
+    height: 100%;
+}
+.sign-in-left-image{
+    background: url('../../resources/images/sign-in.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;left: 0;
+    width: 100%;
+    height: 100%;
+}
+.sign-in{
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 15px 0.5px #c6c8ca;
+}
