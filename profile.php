@@ -48,7 +48,7 @@ if(!empty($_GET['p'])){
     <link href="resources/bootstrap_4.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/pricing.css" rel="stylesheet">
     <link href="resources/css/style.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="resources/js/scripts.js"></script>
 </head>
@@ -61,6 +61,7 @@ if(!empty($_GET['p'])){
         <?php include_once "view/profile/credit.php"; ?>
         <?php break; ?>
     <?php case 'sales': ?>
+        <?php include_once "view/profile/sales.php"; ?>
         <?php break; ?>
     <?php case 'purchases': ?>
         <?php break; ?>

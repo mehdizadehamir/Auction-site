@@ -1,5 +1,20 @@
 <script>
+    const ajaxPath = '<?=$__CONTROLLERS.'profile/credits/controller.php';?>';
+    const ajaxPathWallet = '<?=$__CONTROLLERS.'profile/wallet/controller.php';?>';
+    var _selected_plan_price = 0;
+    var _requestCalling = false;
+
+    function refreshWalletValue() {
+        callPostAJAX(ajaxPathWallet,null,function (data) {
+            $('#currentWalletValue').html(data.value);
+        });
+    }
+
     function purchase(id){
+        _selected_plan_price = 0;
+        const btnYes = $('#confirmationModal #modal_button');
+        btnYes.prop('disabled','');
+        btnYes.html("Yes, i'm sure");
 
         var __MODAL_HEADER_CREDIT = 'Confirmation';
         var __MODAL_CREDIT_VALUE;
@@ -15,9 +30,39 @@
                 __MODAL_CREDIT_VALUE = 1000;
                 break;
         }
+        _selected_plan_price = __MODAL_CREDIT_VALUE;
         var __MODAL_BODY_CREDIT = 'Are you sure you want to pay <span class="font-weight-bold">$'+ __MODAL_CREDIT_VALUE +'</span> ?<br>This value will added to your current wallet.';
 
-        showModal('#confirmationModal',__MODAL_HEADER_CREDIT,__MODAL_BODY_CREDIT);
+        showModal('#confirmationModal',__MODAL_HEADER_CREDIT,__MODAL_BODY_CREDIT,'#warnIdModal',callback);
+    }
+    function callback(){
+
+        _requestCalling = true;
+        const btnYes = $('#confirmationModal #modal_button');
+        const btnYesDefaultHTML = btnYes.html();
+        const warnElementModal = $('#warnIdModal');
+
+        btnYes.prop('disabled','disabled');
+        btnYes.html(__LOADING_SPAN);
+
+        const params = {
+            'credit':_selected_plan_price
+        };
+
+        callPostAJAX(ajaxPath,params,function (data) {
+            _requestCalling = false;
+            if(!data.result){
+                btnYes.html(btnYesDefaultHTML);
+                btnYes.prop('disabled','');
+                showWarnInside(warnElementModal,'alert-danger',data.message);
+            }else{
+                refreshWalletValue();
+                showWarnInside(warnElementModal,'alert-success',data.message);
+                setTimeout(function () {
+                    $('#confirmationModal').modal('hide');
+                },1500);
+            }
+        });
     }
 </script>
 
@@ -71,3 +116,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        refreshWalletValue();
+    });
+</script>

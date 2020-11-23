@@ -10,11 +10,14 @@
             </div>
             <div class="modal-body" style="direction: ltr;">
                 <p style="font-size: 15px;" id="modal_body"></p>
+                <div class="row">
+                    <div class="col-12" id="warnIdModal"></div>
+                </div>
             </div>
             <div class="modal-footer" style="direction: ltr;">
                 <button type="button" class="btn btn-default" style="font-size: 13.5px;" data-dismiss="modal">Cancel</button>
                 &nbsp;
-                <button type="button" class="btn btn-dark" style="font-size: 13.5px;" data-dismiss="modal">Yes, i'm sure</button>
+                <button id="modal_button" type="button" class="btn btn-dark" style="font-size: 13.5px;">Yes, i'm sure</button>
             </div>
         </div>
 

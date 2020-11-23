@@ -28,7 +28,7 @@ if($data != null){
         ];
 }else{
 
-    if($users->add([$username,strongPassword($password),1,null])){
+    if($users->add([$username,strongPassword($password)])){
         $output =
             [
                 'result'=>true,
