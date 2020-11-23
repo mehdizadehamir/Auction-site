@@ -26,6 +26,9 @@ nav ul .nav-link{
 nav ul li.active{
     text-decoration: underline !important;
 }
+nav ul li a.nav-link{
+    font-size: 16px;
+}
 
 header{
     min-height: 100px;

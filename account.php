@@ -1,12 +1,16 @@
-<?php include_once 'controller/config.php'; ?>
+<?php
+session_start();
+include_once 'controller/config.php';
+
+$user_login_data = userLoginData();
+redirectToHomeIfIsLoggedIn($user_login_data);
+?>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.1.1">
+    <?php include_once "view/main/meta.php"; ?>
     <title>Pricing example · Bootstrap</title>
     <!-- Bootstrap core CSS -->
     <link href="resources/bootstrap_4.5/css/bootstrap.min.css" rel="stylesheet">

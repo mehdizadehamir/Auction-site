@@ -23,3 +23,19 @@ function userLoginData(){
     }
 }
 
+function logOutUser(){
+    if(!empty($_SESSION[$GLOBALS['__USER_DATA_SESSION_INDEX']])){
+        unset($_SESSION[$GLOBALS['__USER_DATA_SESSION_INDEX']]);
+        session_destroy();
+    }
+}
+
+
+function redirectToHomeIfIsLoggedIn($userData){
+    if($userData != null){
+        header('location: index.php');
+    }
+}
+function redirectToHomeAfterLoggedOut(){
+    header('location: index.php');
+}

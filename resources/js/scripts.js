@@ -23,3 +23,9 @@ function callPostAJAX(url,params, onCallback) {
         onCallback(result);
     });
 }
+
+function showModal(modalId, header, body) {
+    $(modalId + ' #modal_header').html(header);
+    $(modalId + ' #modal_body').html(body);
+    $(modalId).modal('show');
+}
