@@ -7,8 +7,8 @@ if(empty($_POST))
     die($output);
 
 // include requirements
-include_once '../config.php';
-include_once '../../model/users/users.php';
+include_once __DIR__.'/../config.php';
+include_once __DIR__.'/../../model/users/users.php';
 
 // code statement
 $username = $_POST['username'];

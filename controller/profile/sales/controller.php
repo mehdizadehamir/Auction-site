@@ -8,8 +8,8 @@ if(empty($_POST) || empty($_FILES)){
 }
 
 // include requirements
-include_once '../../config.php';
-include_once '../../../model/auctions/auctions.php';
+include_once __DIR__.'/../../config.php';
+include_once __DIR__.'/../../../model/auctions/auctions.php';
 
 if(!isset($_SESSION[$__USER_DATA_SESSION_INDEX])){
     $output = ['result'=>false, 'message'=>'Warning: user must be login!'];

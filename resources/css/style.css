@@ -108,3 +108,13 @@ header .header-bid-section div.header-bid-section-item{
     color: #666;
     font-size: 15px;
 }
+
+.customTable tbody tr:hover
+{
+    cursor: pointer;
+    background: #d9dadc !important;
+}
+.customTable tbody tr.active
+{
+    background: #e2e3e5;
+}

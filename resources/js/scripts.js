@@ -10,6 +10,7 @@ const __WARN_PROFILE_EMPTY_NAME      = "Warning: You've not entered 'Product nam
 const __WARN_PROFILE_EMPTY_PRICE     = "Warning: You've not entered 'Product price' for your auction!";
 const __WARN_PROFILE_CREATED_SUCCESS = "Your auction created successfully, you can manage that from 'Sales list'";
 const __WARN_PROFILE_WRONG_PRICE     = "Warning: The entered 'Product price' is wrong!";
+var __badges;
 
 
 const __LOADING_SPAN = '<span class="fa fa-spinner fa-spin"></span>';
@@ -42,4 +43,15 @@ function showModal(modalId, header, body,warnId,onClickYes) {
     };
 
     $(modalId).modal('show');
+}
+
+
+function refreshBadges(ajaxPathNavbar,callback) {
+    callPostAJAX(ajaxPathNavbar,null,function (data) {
+        __badges = data;
+        if(data.result){
+            callback();
+        }
+
+    });
 }

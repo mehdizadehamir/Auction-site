@@ -1,8 +1,8 @@
 <?php
-class Auctions
+class Purchases
 {
-    var $table_name = 'auctions';
-    private $cols       = ['name','image','price','description','regDate','userId'];
+    var $table_name = 'purchases';
+    private $cols       = ['userId','auctionId','value'];
     private $connection;
 
     function __construct($connection){
@@ -21,7 +21,7 @@ class Auctions
         $s = $s * $GLOBALS['__TABLE_MAX_COUNT_PER_PAGE'];
         $e = $s + $GLOBALS['__TABLE_MAX_COUNT_PER_PAGE'];
 
-        $query = "select auc.*,(select count(`id`) from `".$this->table_name."` where `userId` = '$uid') as totalRows,(select max(`value`) from `bids` where `auctionId`=auc.id) as highestOffer, (select count(`id`) from `bids` where `auctionId`=auc.id) as bidsCount from `". $this->table_name ."` as auc where auc.`userId`='$uid' order by auc.`id` desc limit $s,$e";
+        $query = "select prs.*,(select count(`id`) from `".$this->table_name."` where `userId` = '$uid') as totalRows,`auctions`.name,`auctions`.price from `". $this->table_name ."` as prs left join `auctions` on (`auctions`.id = prs.auctionId) where prs.`userId`='$uid' order by prs.`id` desc limit $s,$e";
         $select = mysqli_query($this->connection, $query);
         if(mysqli_num_rows($select) > 0)
             return $select;

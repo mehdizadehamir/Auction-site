@@ -1,9 +1,7 @@
 <?php
-include_once "model/auctions/auctions.php";
+include_once __DIR__."/../../model/auctions/auctions.php";
 
 $auctions = new Auctions($__connection);
-
-//deleteDirectory();
 ?>
 <div class="container">
     <div class="row mt-3">

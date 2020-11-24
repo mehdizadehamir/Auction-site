@@ -1,14 +1,14 @@
 <?php
 
-$__PATH         = "http://localhost:8080/auction/";
-$__CONTROLLERS         = $__PATH."controller/";
-$__USER_DATA_SESSION_INDEX = "user-data";
+$__PATH                     = "http://localhost:8080/auction/";
+$__CONTROLLERS              = $__PATH."controller/";
+$__USER_DATA_SESSION_INDEX  = "user-data";
 $__TABLE_MAX_COUNT_PER_PAGE = 20;
 
-$__HOST_ADR     = "localhost";
-$__HOST_USER    = "root";
-$__HOST_PASS    = "";
-$__HOST_DB_NAME = "xAuction";
+$__HOST_ADR                 = "localhost";
+$__HOST_USER                = "root";
+$__HOST_PASS                = "";
+$__HOST_DB_NAME             = "xAuction";
 
 $__connection = mysqli_connect($__HOST_ADR, $__HOST_USER, $__HOST_PASS, $__HOST_DB_NAME) or die('Connection lost!');
 

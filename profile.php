@@ -76,6 +76,7 @@ switch ($_currentPage)
         include_once "view/profile/saleslist.php";
         break;
     case 'purchases':
+        include_once "view/profile/purchases.php";
         break;
 }
 ?>
