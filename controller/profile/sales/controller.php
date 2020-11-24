@@ -9,7 +9,7 @@ if(empty($_POST) || empty($_FILES)){
 
 // include requirements
 include_once '../../config.php';
-include_once '../../../model/users/users.php';
+include_once '../../../model/auctions/auctions.php';
 
 if(!isset($_SESSION[$__USER_DATA_SESSION_INDEX])){
     $output = ['result'=>false, 'message'=>'Warning: user must be login!'];
@@ -19,8 +19,9 @@ if(!isset($_SESSION[$__USER_DATA_SESSION_INDEX])){
 
 // code statement
 $name = $_POST['name'];
-$price = intval($_POST['price']);
+$price = $_POST['price'];
 $image = $_FILES['image'];
+$desc = $_POST['desc'];
 
 if(($image['size'] / 1024) > 1024){
     $output = ['result'=>false, 'message'=>'Warning: max image size: 1MB'];
@@ -41,14 +42,27 @@ if(!file_exists($folder)){
 
 $newImageName = $_SESSION[$__USER_DATA_SESSION_INDEX]['id'].'-'.time().'-'.$_SESSION[$__USER_DATA_SESSION_INDEX]['username'];
 
-$upload = move_uploaded_file($image['tmp_name'],$folder.'/'.$newImageName.'.'.str_replace('image/','',$image['type']));
+$img = $newImageName.'.'.str_replace('image/','',$image['type']);
+$upload = move_uploaded_file($image['tmp_name'],$folder.'/'.$img);
 if($upload){
-    
-    $output =
-        [
-            'result'=>true,
-            'message'=>'',
-        ];
+
+    $auctions = new Auctions($__connection);
+    $insertion = $auctions->add([$name,$img,$price,$desc,date(time() + (60 * 5)),$_SESSION[$__USER_DATA_SESSION_INDEX]['id']]);
+
+    if($insertion){
+        $output =
+            [
+                'result'=>true,
+                'message'=>"Your new auction created, you can see its statistics from 'Sales List'",
+            ];
+    }else{
+        $output =
+            [
+                'result'=>false,
+                'message'=>'Warning: creating new auction failed!, please try again later.',
+                'error'=>$image['tmp_name']
+            ];
+    }
 }else{
     $output =
         [

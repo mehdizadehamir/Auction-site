@@ -22,9 +22,10 @@
                             Welcome!, <?=$user_login_data['username'];?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="profile.php?p=Credits">Credits</a>
-                            <a class="dropdown-item" href="profile.php?p=Purchases">Purchases</a>
-                            <a class="dropdown-item" href="profile.php?p=Sales">Sales</a>
+                            <a class="dropdown-item <?=checkP('Credits'); ?>" href="profile.php?p=Credits">Credits</a>
+                            <a class="dropdown-item <?=checkP('Purchases'); ?>" href="profile.php?p=Purchases">Purchases</a>
+                            <a class="dropdown-item <?=checkP('Sales'); ?>" href="profile.php?p=Sales">Sell</a>
+                            <a class="dropdown-item <?=checkP('SalesList'); ?>" href="profile.php?p=SalesList">Sales list</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="exit.php">Sign out</a>
                         </div>

@@ -1,8 +1,8 @@
 <?php
-class Users{
-
-    private $table_name = 'users';
-    private $cols       = ['username','password'];
+class Auctions
+{
+    private $table_name = 'auctions';
+    private $cols       = ['name','image','price','description','regDate','userId'];
     private $connection;
 
     function __construct($connection){
@@ -14,27 +14,21 @@ class Users{
         return mysqli_query($this->connection, $query);
     }
 
-    function getWallet($uid){
-        $query = "select `wallet` from `". $this->table_name ."` where `id`='$uid' limit 1";
-        $select = mysqli_query($this->connection,$query);
-        if(mysqli_num_rows($select) > 0){
-            $data = mysqli_fetch_array($select);
-            return $data['wallet'];
-        }else{
-            return 0;
-        }
-    }
-    function updateCredit($credit_value,$uid){
-        $query = "insert into `credits` (`userId`,`value`) values ('$uid','$credit_value')";
+    function select($uid){
+        $s = get('s');
+        $s = intval(mysqli_real_escape_string($this->connection, (intval($s) != 0) ? intval($s) : 0));
+        $s = ($s > 0) ? ($s-1) : 0;
+        $s = $s * $GLOBALS['__TABLE_MAX_COUNT_PER_PAGE'];
+        $e = $s + $GLOBALS['__TABLE_MAX_COUNT_PER_PAGE'];
+
+        $query = "select auc.*,(select count(`id`) from `".$this->table_name."` where `userId` = '$uid') as totalRows,(select max(`value`) from `bids` where `auctionId`=auc.id) as highestOffer, (select count(`id`) from `bids` where `auctionId`=auc.id) as bidsCount from `". $this->table_name ."` as auc where auc.`userId`='$uid' order by auc.`id` desc limit $s,$e";
         $select = mysqli_query($this->connection, $query);
-        if($select){
-            $query3 = "update `users` set `wallet`=`wallet` + $credit_value where `id`='$uid'";
-            mysqli_query($this->connection,$query3);
-            return true;
-        }else{
-            return false;
-        }
+        if(mysqli_num_rows($select) > 0)
+            return $select;
+        else
+            return null;
     }
+
     function update($wh){
         $whes = '';
         foreach ($wh as $key => $value){
@@ -50,15 +44,6 @@ class Users{
         }
     }
 
-    function checkLogin($u,$p){
-        $query = "select `id`,". $this->_getTableCols(true) ." from `".$this->table_name."` where `username` = '". mysqli_real_escape_string($this->connection, $u) ."' and `password`='". mysqli_real_escape_string($this->connection, $p) ."' limit 1";
-        $select = mysqli_query($this->connection, $query);
-        if(mysqli_num_rows($select) > 0){
-            return mysqli_fetch_array($select);
-        }else{
-            return null;
-        }
-    }
     function check($wh){
         $query = "select `id`,". $this->_getTableCols(true) ." from `".$this->table_name."` where `". mysqli_real_escape_string($this->connection,$wh[0]) ."` = '". mysqli_real_escape_string($this->connection, $wh[1]) ."' limit 1";
         $select = mysqli_query($this->connection, $query);
@@ -73,9 +58,9 @@ class Users{
         $result = '';
         foreach($this->cols as $col){
             if($safe){
-               if($col == 'password'){
-                   continue;
-               }
+                if($col == 'password'){
+                    continue;
+                }
             }
             $result .= '`'.$col.'`,';
         }

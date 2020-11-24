@@ -3,6 +3,7 @@ session_start();
 include_once "controller/config.php";
 
 $user_login_data = userLoginData();
+redirectToHomeIfNotIsLoggedIn($user_login_data);
 
 $_currentPage = '';
 $_PAGE_HEADER = '';
@@ -20,8 +21,14 @@ if(!empty($_GET['p'])){
             break;
         case 'sales':
             $_currentPage = 'sales';
+            $_PAGE_HEADER = 'Sell';
+            $_PAGE_DESC = "At the moment, sell everything you'd like by the best price.";
+            $_PAGE_IMG_NAME = 'top_header_img_05.jpg';
+            break;
+        case 'saleslist':
+            $_currentPage = 'saleslist';
             $_PAGE_HEADER = 'Sales';
-            $_PAGE_DESC = "The history of your sales in bellow's list<br>will give you convenient sales management.";
+            $_PAGE_DESC = "The history of your sales in list bellow<br>will gave you convenient sales management.";
             $_PAGE_IMG_NAME = 'top_header_img_04.jpg';
             break;
         case 'purchases':
@@ -56,19 +63,22 @@ if(!empty($_GET['p'])){
 <?php include_once "view/main/navbar.php"; ?>
 <?php include_once "view/main/header_profile.php"; ?>
 
-<?php switch ($_currentPage): ?>
-<?php case 'credits': ?>
-        <?php include_once "view/profile/credit.php"; ?>
-        <?php break; ?>
-    <?php case 'sales': ?>
-        <?php include_once "view/profile/sales.php"; ?>
-        <?php break; ?>
-    <?php case 'purchases': ?>
-        <?php break; ?>
-    <?php default: ?>
-
-        <?php break; ?>
-    <?php endswitch; ?>
+<?php
+switch ($_currentPage)
+{
+    case 'credits':
+        include_once "view/profile/credit.php";
+        break;
+    case 'sales':
+        include_once "view/profile/sales.php";
+        break;
+    case 'saleslist':
+        include_once "view/profile/saleslist.php";
+        break;
+    case 'purchases':
+        break;
+}
+?>
 
 <?php include_once "view/main/footer.php"; ?>
 <?php include_once "view/modals/confirmation.php"; ?>

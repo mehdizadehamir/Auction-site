@@ -86,3 +86,25 @@ header .header-bid-section div.header-bid-section-item{
     background-size: 100%;
     background-position: center;
 }
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #ffffff !important;
+    text-decoration: none;
+    background-color: #000000 !important;
+}
+
+.pagination span.page-link{
+    cursor: default;
+    font-size: 15px;
+}
+.pagination > li.active{
+    text-decoration: none !important;
+}
+.page-item.active .page-link {
+    background-color: #000000;
+    border-color: #000000;
+}
+.page-item .page-link {
+    color: #666;
+    font-size: 15px;
+}

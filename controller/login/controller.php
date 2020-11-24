@@ -19,7 +19,7 @@ if(empty($username) || empty($password)){
 }
 
 $users = new Users($__connection);
-$data  = $users->check(['username',$username]);
+$data  = $users->checkLogin($username,strongPassword($password));
 
 if($data != null){
     $_SESSION[$__USER_DATA_SESSION_INDEX] = $data;

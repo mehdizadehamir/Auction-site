@@ -33,6 +33,12 @@
                                 <input id="sellImg" type="file" class="form-control">
                             </div>
                         </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label for="sellDesc">Product description</label>
+                                <textarea id="sellDesc" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
                         <div class="row mt-5">
                             <div class="col-12">
                                 <button type="button" id="btnSubmit" class="form-control btn" style="color: #000;background: var(--yellow-color)">
@@ -75,16 +81,21 @@
         const sellPriceElem = $('#sellPrice');
         const warnIdSales = $('#warnIdSales');
         const sellImgElem = $('#sellImg');
+        const sellDesc = $('#sellDesc');
 
         $("#sellImg").change(function() {
             readURL(this);
         });
 
+        const btnSubmit = $('#btnSubmit');
 
-        $('#btnSubmit').click(function () {
+        btnSubmit.click(function () {
+
+            const btnSubmitDefaultHTML = btnSubmit.html();
 
             const name = sellNameElem.val();
             const price = sellPriceElem.val();
+            const desc = sellDesc.val();
 
             if(name == ""){
                 showWarnInside(warnIdSales,'alert-danger',__WARN_PROFILE_EMPTY_NAME);
@@ -107,11 +118,21 @@
                 form_data.append( 'image' ,file);
                 form_data.append( 'name'  ,name);
                 form_data.append( 'price' ,price);
+                form_data.append( 'desc' ,desc);
+
+                btnSubmit.prop('disabled','disabled');
+                btnSubmit.html(__LOADING_SPAN);
 
                 var request = new XMLHttpRequest();
                 request.addEventListener('load', function(e) {
-                    console.log('=======> ' + request.response);
-                    alert(e);
+                    btnSubmit.html(btnSubmitDefaultHTML);
+                    const js = JSON.parse(request.response.toString());
+                    if(js.result){
+                        showWarnInside(warnIdSales,'alert-success',__WARN_PROFILE_CREATED_SUCCESS);
+                    }else{
+                        btnSubmit.prop('disabled','');
+                        showWarnInside(warnIdSales,'alert-danger',js.message);
+                    }
                 });
                 request.responseType = 'text';
                 request.open('post', ajaxPath);
