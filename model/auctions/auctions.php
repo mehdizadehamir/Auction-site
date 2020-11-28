@@ -29,6 +29,67 @@ class Auctions
             return null;
     }
 
+    function selectOne(){
+
+        $id = get('id');
+        $id = intval(mysqli_real_escape_string($this->connection, (intval($id) != 0) ? intval($id) : 0));
+
+        $query = "select auc.*,`users`.username as username,(select max(`value`) from `bids` where `auctionId`=auc.id) as highestOffer, (select count(`id`) from `bids` where `auctionId`=auc.id) as bidsCount from `". $this->table_name ."` as auc left join `users` on (`users`.id = auc.`userId`) where auc.`id`='$id' order by auc.`id` desc limit 1";
+        $select = mysqli_query($this->connection, $query);
+        if(mysqli_num_rows($select) > 0)
+            return mysqli_fetch_array($select);
+        else
+            return null;
+    }
+
+    function lists($filter,$order){
+        $s = get('s');
+        $s = intval(mysqli_real_escape_string($this->connection, (intval($s) != 0) ? intval($s) : 0));
+        $s = ($s > 0) ? ($s-1) : 0;
+        $s = $s * $GLOBALS['__TABLE_MAX_COUNT_PER_PAGE'];
+        $e = $s + $GLOBALS['__TABLE_MAX_COUNT_PER_PAGE'];
+
+        $wh=null;
+        $ord = "auc.`id` desc";
+        if($filter != "" && $order != ""){
+            $allowedOrders = ['latest','price-h','price-l','bids-h','bids-l'];
+            $allowedFilters = ['all','rtb','to'];
+            if(in_array($order, $allowedOrders)){
+                switch ($order){
+                    case 'latest':
+                            $ord = "auc.`id` desc";
+                        break;
+                    case 'price-h':
+                        $ord = "auc.`price` desc";
+                        break;
+                    case 'price-l':
+                        $ord = "auc.`price` asc";
+                        break;
+                    case 'bids-h':
+                        $ord = "`bidsCount` desc";
+                        break;
+                    case 'bids-l':
+                        $ord = "`bidsCount` asc";
+                        break;
+                }
+            }
+            if(in_array($filter, $allowedFilters)){
+                switch ($filter){
+                    case 'all':
+                        $wh = null;
+                        break;
+                }
+            }
+        }
+
+        $query = "select auc.*,(select count(`id`) from `".$this->table_name."`) as totalRows,(select max(`value`) from `bids` where `auctionId`=auc.id) as highestOffer, (select count(`id`) from `bids` where `auctionId`=auc.id) as bidsCount from `". $this->table_name ."` as auc order by $ord limit $s,$e";
+        $select = mysqli_query($this->connection, $query);
+        if(mysqli_num_rows($select) > 0)
+            return $select;
+        else
+            return null;
+    }
+
     function update($wh){
         $whes = '';
         foreach ($wh as $key => $value){

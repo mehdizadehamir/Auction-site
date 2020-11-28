@@ -18,17 +18,12 @@ $user_login_data = userLoginData();
     <link href="resources/css/style.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="resources/js/scripts.js"></script>
 </head>
 <body>
     <?php include_once "view/main/navbar.php"; ?>
     <?php include_once "view/main/header_home.php"; ?>
-    <?php
-    ($user_login_data != null) ? print_r($user_login_data['username']) : null;
-    ?>
-    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1>Pricing</h1>
-    <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It’s built with default Bootstrap components and utilities with little customization.</p>
-</div>
+    <?php include_once "view/main/auctionList.php"; ?>
     <?php include_once "view/main/footer.php"; ?>
 </body>
 <script src="resources/bootstrap_4.5/js/bootstrap.min.js"></script>

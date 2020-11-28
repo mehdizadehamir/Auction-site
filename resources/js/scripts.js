@@ -55,3 +55,15 @@ function refreshBadges(ajaxPathNavbar,callback) {
 
     });
 }
+
+function flashElement(elemId) {
+    $(function () {
+        $(elemId).delay(150).animate({
+            "background-color": "#ffe83b"
+        }, 350, function () {
+            $(elemId).animate({
+                "background-color": "#fff"
+            }, 200);
+        });
+    });
+}

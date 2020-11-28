@@ -48,6 +48,14 @@ header .header-bid-section div.header-bid-section-item{
     border-radius: 3px;
 }
 
+header .header-bid-section div.header-bid-section-item-without-color{
+    display: inline-block;
+    margin: 3px;
+    padding: 5px;
+    padding-left: 10px;padding-right: 10px;
+    border-radius: 3px;
+}
+
 
 .sign-up-left-image{
     background: url('../../resources/images/sign-up.png');
