@@ -17,7 +17,7 @@ redirectToHomeIfIsLoggedIn($user_login_data);
     <link href="resources/css/signin.css" rel="stylesheet">
     <link href="resources/css/style.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="resources/js/jquery-3.5.1.min.js"></script>
     <script src="resources/js/scripts.js"></script>
 </head>
 

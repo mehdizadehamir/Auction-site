@@ -126,6 +126,7 @@
                 var request = new XMLHttpRequest();
                 request.addEventListener('load', function(e) {
                     btnSubmit.html(btnSubmitDefaultHTML);
+                    console.log(request.response.toString());
                     const js = JSON.parse(request.response.toString());
                     if(js.result){
                         showWarnInside(warnIdSales,'alert-success',__WARN_PROFILE_CREATED_SUCCESS);

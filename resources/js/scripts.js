@@ -37,10 +37,13 @@ function showModal(modalId, header, body,warnId,onClickYes) {
     $(modalId + ' #modal_body').html(body);
 
     const parent = $(modalId);
-    const element = parent.find('#modal_button');
-    element[0].onclick = function() {
-        onClickYes();
-    };
+
+    if(onClickYes != null){
+        const element = parent.find('#modal_button');
+        element[0].onclick = function() {
+            onClickYes();
+        };
+    }
 
     $(modalId).modal('show');
 }

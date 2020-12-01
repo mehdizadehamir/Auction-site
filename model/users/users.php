@@ -2,7 +2,7 @@
 class Users{
 
     private $table_name = 'users';
-    private $cols       = ['username','password'];
+    private $cols       = ['token','username','password'];
     private $connection;
 
     function __construct($connection){
@@ -28,7 +28,7 @@ class Users{
         $query = "insert into `credits` (`userId`,`value`) values ('$uid','$credit_value')";
         $select = mysqli_query($this->connection, $query);
         if($select){
-            $query3 = "update `users` set `wallet`=`wallet` + $credit_value where `id`='$uid'";
+            $query3 = "update `users` set `wallet`=`wallet` + ($credit_value) where `id`='$uid'";
             mysqli_query($this->connection,$query3);
             return true;
         }else{

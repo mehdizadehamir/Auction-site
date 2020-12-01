@@ -47,7 +47,7 @@ $upload = move_uploaded_file($image['tmp_name'],$folder.'/'.$img);
 if($upload){
 
     $auctions = new Auctions($__connection);
-    $insertion = $auctions->add([$name,$img,$price,$desc,date(time() + (60 * 5)),$_SESSION[$__USER_DATA_SESSION_INDEX]['id']]);
+    $insertion = $auctions->add([$name,$img,$price,$desc,$_SESSION[$__USER_DATA_SESSION_INDEX]['id']]);
 
     if($insertion){
         $output =

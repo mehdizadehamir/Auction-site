@@ -2,7 +2,7 @@
 class Auctions
 {
     var $table_name = 'auctions';
-    private $cols       = ['name','image','price','description','regDate','userId'];
+    private $cols       = ['name','image','price','description','userId'];
     private $connection;
 
     function __construct($connection){

@@ -34,6 +34,7 @@ $auctions = new Auctions($__connection);
                                         <?
                                             $totalAuctions = $row['totalRows'];
                                             $regDate = $row['regDate'];
+                                            $expireDate = $row['expireDate'];
                                         ?>
                                         <tr>
                                             <td><?=$row['id'];?></td>
@@ -44,7 +45,7 @@ $auctions = new Auctions($__connection);
                                                     $status_s = $row['soldStatus'];
                                                     $status_a = $row['isActive'];
                                                     if($status_s == 2){
-                                                        if(($status_a == 0) || ($regDate < time())){
+                                                        if(($status_a == 0) || ($expireDate < time() && $expireDate != null && $expireDate != '')){
                                                             echo '<span class="p-2 alert alert-warning">TimeOver</span>';
                                                         }else{
                                                             echo '<span class="p-2 alert alert-success">Active</span>';

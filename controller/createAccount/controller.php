@@ -28,7 +28,9 @@ if($data != null){
         ];
 }else{
 
-    if($users->add([$username,strongPassword($password)])){
+    $token = base64_encode(md5($username.'-'.time().'-'.$username));
+
+    if($users->add([$token,$username,strongPassword($password)])){
         $output =
             [
                 'result'=>true,

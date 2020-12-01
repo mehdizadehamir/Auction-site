@@ -7,32 +7,32 @@ $_filter_by = (!empty($_GET['f'])) ? $_GET['f'] : 'all';
 $_order_by = (!empty($_GET['o'])) ? $_GET['o'] : 'latest';
 ?>
 
-<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center col-6">
-    <div class="row mb-3">
-        <div class="col-3 text-left">
-            <label for="auctions-order-select" class="col-form-label">Order</label>
-            <select id="auctions-order-select" class="form-control custom-select">
-                <option value="latest" <?php if($_order_by == 'latest') echo 'selected'; ?>>Latest</option>
-                <option value="price-h" <?php if($_order_by == 'price-h') echo 'selected'; ?>>Price highest</option>
-                <option value="price-l" <?php if($_order_by == 'price-l') echo 'selected'; ?>>Price lowest</option>
-                <option value="bids-h" <?php if($_order_by == 'bids-h') echo 'selected'; ?>>Bids highest</option>
-                <option value="bids-l" <?php if($_order_by == 'bids-l') echo 'selected'; ?>>Bids lowest</option>
-            </select>
-        </div>
-        <div class="col-3 text-left d-none">
-            <label for="auctions-filter-select" class="col-form-label">Filter</label>
-            <select id="auctions-filter-select" class="form-control custom-select">
-                <option value="all" <?php if($_filter_by == 'all') echo 'selected'; ?>>All</option>
-                <option value="rtb" <?php if($_filter_by == 'rtb') echo 'selected'; ?>>Ready to bids</option>
-                <option value="to" <?php if($_filter_by == 'to') echo 'selected'; ?>>TimeOvers</option>
-            </select>
-        </div>
-    </div>
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center col-12 col-md-8">
     <?
     $totalAuctions = 0;
     $myAuctions = $auctions->lists($_filter_by,$_order_by);
     if($myAuctions != null):
         ?>
+        <div class="row mb-3">
+            <div class="col-5 col-md-3 text-left">
+                <label for="auctions-order-select" class="col-form-label">Order</label>
+                <select id="auctions-order-select" class="form-control custom-select">
+                    <option value="latest" <?php if($_order_by == 'latest') echo 'selected'; ?>>Latest</option>
+                    <option value="price-h" <?php if($_order_by == 'price-h') echo 'selected'; ?>>Price highest</option>
+                    <option value="price-l" <?php if($_order_by == 'price-l') echo 'selected'; ?>>Price lowest</option>
+                    <option value="bids-h" <?php if($_order_by == 'bids-h') echo 'selected'; ?>>Bids highest</option>
+                    <option value="bids-l" <?php if($_order_by == 'bids-l') echo 'selected'; ?>>Bids lowest</option>
+                </select>
+            </div>
+            <div class="col-3 text-left d-none">
+                <label for="auctions-filter-select" class="col-form-label">Filter</label>
+                <select id="auctions-filter-select" class="form-control custom-select">
+                    <option value="all" <?php if($_filter_by == 'all') echo 'selected'; ?>>All</option>
+                    <option value="rtb" <?php if($_filter_by == 'rtb') echo 'selected'; ?>>Ready to bids</option>
+                    <option value="to" <?php if($_filter_by == 'to') echo 'selected'; ?>>TimeOvers</option>
+                </select>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -50,6 +50,7 @@ $_order_by = (!empty($_GET['o'])) ? $_GET['o'] : 'latest';
                     <?
                     $totalAuctions = $row['totalRows'];
                     $regDate = $row['regDate'];
+                    $expireDate = $row['expireDate'];
                     ?>
                     <tr>
                         <td><?=$row['name'];?></td>
@@ -59,7 +60,7 @@ $_order_by = (!empty($_GET['o'])) ? $_GET['o'] : 'latest';
                             $status_s = $row['soldStatus'];
                             $status_a = $row['isActive'];
                             if($status_s == 2){
-                                if(($status_a == 0) || ($regDate < time())){
+                                if(($status_a == 0) || ($expireDate < time() && $expireDate != null && $expireDate != '')){
                                     echo '<span class="p-2 alert alert-warning">TimeOver</span>';
                                 }else{
                                     echo '<span class="p-2 alert alert-success">Active</span>';
@@ -72,11 +73,27 @@ $_order_by = (!empty($_GET['o'])) ? $_GET['o'] : 'latest';
                         <td><?=$row['bidsCount'];?></td>
                         <td><?=$row['highestOffer'];?></td>
                         <td>
-                            <a href="auction.php?id=<?=$row['id'];?>" class="btn btn-success pt-1 pb-1" style="font-size: 14px;">
-                                <span>Make bids</span>
-                                &nbsp;
-                                <span class="fa fa-gavel"></span>
-                            </a>
+                            <?
+                            $freeToBid = true;
+                            if(!empty($user_login_data['id'])){
+                                if(($user_login_data['id'] == $row['userId']) || ($row['soldStatus'] == 1)){
+                                    $freeToBid = false;
+                                }
+                            }
+                            ?>
+                            <?php if($freeToBid): ?>
+                                <a href="auction.php?id=<?=$row['id'];?>" class="btn btn-success pt-1 pb-1" style="font-size: 14px;">
+                                    <span>Make bids</span>
+                                    &nbsp;
+                                    <span class="fa fa-gavel"></span>
+                                </a>
+                            <? else: ?>
+                                <a href="auction.php?id=<?=$row['id'];?>" class="btn btn-dark pt-1 pb-1" style="font-size: 14px;">
+                                    <span>show detail</span>
+                                    &nbsp;
+                                    <span class="fa fa-eye"></span>
+                                </a>
+                            <? endif; ?>
                         </td>
                     </tr>
                 <? endwhile; ?>
