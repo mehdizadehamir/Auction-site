@@ -8,11 +8,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">What's new</a>
+                <li class="nav-item <?php if(!empty($_CURRENT)){if($_CURRENT=='new') echo 'active';};?>">
+                    <a class="nav-link" href="new.php">What's new</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                <li class="nav-item <?php if(!empty($_CURRENT)){if($_CURRENT=='about') echo 'active';};?>">
+                    <a class="nav-link" href="about.php">About</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto mt-2 mt-md-0">

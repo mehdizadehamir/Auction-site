@@ -7,7 +7,7 @@ $_filter_by = (!empty($_GET['f'])) ? $_GET['f'] : 'all';
 $_order_by = (!empty($_GET['o'])) ? $_GET['o'] : 'latest';
 ?>
 
-<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center col-12 col-md-8">
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center col-12 col-md-8 col-lg-7">
     <?
     $totalAuctions = 0;
     $myAuctions = $auctions->lists($_filter_by,$_order_by);

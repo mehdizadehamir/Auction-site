@@ -25,8 +25,11 @@
             <div class="col-6 col-md">
                 <h5>Team members</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Amir</a></li>
-                    <li><a class="text-muted" href="#">Sina</a></li>
+                    <li><a class="text-muted" href="#">MehdizadeMehrjoy Araghi. Amir</a></li>
+                    <li><a class="text-muted" href="#">Mohammadreza. Chartabshargh</a></li>
+                    <li><a class="text-muted" href="#">Kumar. Kapil</a></li>
+                    <li><a class="text-muted" href="#">Rachita. Tandon</a></li>
+                    <li><a class="text-muted" href="#">Yousef. Ali Buquari</a></li>
                 </ul>
             </div>
         </div>
