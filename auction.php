@@ -170,12 +170,16 @@ $_SESSION['__CURRENT_AUCTION_ID'] = $auctionId;
     const ajaxPathBidRequest = '<?=$__CONTROLLERS.'profile/bidRequests/controller.php';?>';
     const ajaxPathWalletRefresh = '<?=$__CONTROLLERS.'profile/wallet/controller.php';?>';
     const ajaxPathCheckWinner = '<?=$__CONTROLLERS.'profile/auction/controller.php';?>';
+    const _ajax_path_auctions_check = '<?=$__CONTROLLERS.'profile/auction/checkWinner.php';?>';
     var _requestCalling = false;
 
     function checkWinner() {
         console.log('---------- Start Cheking Winner ----------');
         callPostAJAX(ajaxPathCheckWinner,null,function (data) {
             console.log(data);
+            callPostAJAX(_ajax_path_auctions_check,null,function (data2) {
+                console.log(data2);
+            });
             if(data.result && data.winner && data.seen == 0){
                 var bdy = '<div class="font-weight-bold pb-3" style="font-size: 16px;">Wow let`s celebrate!, you win this auction.</div>';
                 bdy += '<div><img src="resources/images/winner.gif" style="width: 100%;" /></div>';
